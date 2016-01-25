@@ -38,29 +38,43 @@
 
 % Tables
 \usepackage{array}
+\usepackage{multirow}
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
-% ---
+% Code
+\usepackage{listings}
+\usepackage{xcolor}
+\renewcommand{\lstlistingname}{Listing}
+
+\lstset{frame=single,
+  language=Python,
+  aboveskip=10mm,
+  belowskip=0mm,
+  captionpos=b,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=false,
+  breakatwhitespace=true,
+  framexleftmargin=6pt,
+  framexrightmargin=6pt,
+  framextopmargin=4pt,
+  framexbottommargin=4pt
+}
+
+
 % Thesis information
-% ---
 \title{Overview of Machine Vision Applications in Waste Recycling}
-
 \author{Tikhon Belousko}
-
 \Major{Degree Program in Intelligent Computing}
 \Faculty{School of Engineering Science}
 \Doctype{}
 \Keywords{visual inspection, computer vision, machine vision, recycling}
 \Supervisor{Leena Ikonen D.Sc. (Tech.)}
 \Examiner{Leena Ikonen D.Sc. (Tech.)}
-
-% Year in abstract pages
 \Year{2016}
-
-% Thesis statistics: figure, table and appendix counts, for abstracts
-\addtostats{, 0 figures}
+\addtostats{, 4 figures, 2 tables, 3 code listings}
 
 
 % ---
@@ -442,10 +456,179 @@ handle separation of objects on conveyor belt in such manner that if presence
 signal is followed by absence signal then camera is making a photo
 of inspected zone.
 
+The image preprocessing is done after making a
+photo of inspection zone a trimming unnecessary boundaries. Once
+this step is performed, the next action is to remove
+background noise by applying the combination
+of thresholding and morphological operation
+erosion using $3\times3$ convolution filter.
+
+The paper image uses 3 channels for its representation,
+namely $R$ (red), $G$ (green) and $B$ (blue). To obtain gray scale
+image standard transformation is performed~(\ref{eq:rgb}).
+
+\begin{equation}\label{eq:rgb}
+  Y = \frac{R \times G \times B}{3}
+\end{equation}
+
+The $Y$ component is named this way to avoid collisions with green channel.
+To construct RGB string authors use maximum of 3 color channels
+as first part of RGBString, then second channel and finally
+channel with lowest value. The $Y$ channel has reserved
+fourth place in RGBString. The frequency of appearance
+of the certain color component is related to its value,
+because ranges of values for different components are
+distinct for different types of paper. The color repetition
+process is described by Listing~\ref{lst:colorrep}.
+
+\begin{lstlisting}[caption={Color Repetiotion Calculation}, label={lst:colorep}]
+# Color repetition in RGBString
+
+if color_value <= 63: color_repetition = 1
+elif color_value <= 184: color_repetition = 2
+elif color_value <= 229: color_repetition = 3
+else: color_repetition = 4
+\end{lstlisting}
+
+To construct template, the system obtains the information
+related to region of interest and RGBString
+after getting template width (TW) and template height (TH)
+values of the template image. As it illustrated on figure~\ref{afig:searchimg}, the
+search image is partitioned into N-cells. The cell
+image should have equal size to template image.
+All of the redundant cells are filtered beforehand.
+
+\begin{figure}[htp]
+  {\par\centering
+  \includegraphics[width=0.55\textwidth]{searchimg}
+  \par}
+  \caption{Search Image and Template Image~\cite{Rahman:2009}}
+  \label{afig:searchimg}
+\end{figure}
+
+The core idea of the template matching procedure is based
+on string matching algorithm. The process can be described
+as follows. For every template image and
+every cell from the grid the matching score is calculated
+using string matching. If the score is greater than
+threshold then template is increased by one (Listing~\ref{lst:tempmatch}).
+For their implementation authors use
+92\% as threshold value.
+
+\begin{lstlisting}[caption={Template Matching Procedure}, label={lst:tempmatch}]
+# Template matching
+for template in templates:
+    for cell in cells(image):
+        score = compare_rgbstrings(template, cell)
+        if score >= threshold:
+            templateOccurance[template] += 1
+\end{lstlisting}
+
+Once matching process is finished, the next step is decision
+making. In this procedure, templates are iterated
+one by one retrieving occurrence, if occurrence of the certain
+template is higher than others then paper is graded by the
+index of this template.
+
+\begin{lstlisting}[caption={Decision Making Procedure}, label={lst:decision}]
+# Decision making
+tmax = 0
+length = len(templates) # number of templates
+papergrade = 1
+for i in range(1,length):
+    if templateOccurance[template] > tmax:
+        tmax = templateOccurance[i]
+        papergrade = i
+\end{lstlisting}
+
+\subsubsection*{ Results }
+The authors used three types of paper for testing
+purposes, namely Old Corrugated Cardboard (OCC),
+Old News Paper (ONP) and White Paper (WP). Those
+types are chosen for testing purposes because of
+their often occurrence in usual tasks. For experiments
+authors selected one hundred paper samples per grade.
+
+The paper object is constructed from
+three color channels, this model is able to describe
+over 16 millions colors. From the experimental points
+of view OCC, ONP, WP colors are fully distinctive,
+although for subtractive printing model cyan, magenta,
+yellow, and black colors are used. Due to this peculiarity,
+not all paper samples use the same color configuration
+and it was harder to distinguish deferent paper objects.
+In presented experiment, authors used not only different
+templates for each type of paper, but also different template
+for each size of the same paper grade. The performance
+of the system is inversely proportional to the template
+size. Thus, the less template size then bigger number of
+image cells should be considered which results
+in greater computational time.
 
 
+\begin{table}[hpt]
+\begin{center}
+\caption{Experiment resutls~\cite{Rahman:2009}.\label{tab:exper}}
+{\renewcommand{\arraystretch}{2}
+\begin{tabular}{|p{0.25\linewidth}|p{0.2\linewidth}|p{0.2\linewidth}|p{0.2\linewidth}|}
 
+% Title
+\hline
+\textbf{Method}
+&
+\textbf{Template Size}
+&
+\textbf{Name of the Paper Grade}
+&
+\textbf{Correct Identification Rate} \\
+\hline
 
+% Row
+\multirow{9}{*}{Template Matching}
+&
+\multirow{3}{*}{$5\times5$}
+& WP & 96\% \\
+\cline{3-4}
+
+&& ONP & 92\% \\
+\cline{3-4}
+
+&& OCC & 96\% \\
+\cline{2-4}
+
+& \multirow{3}{*}{$10\times10$}
+& WP & 86\% \\
+\cline{3-4}
+
+&& ONP & 82\% \\
+\cline{3-4}
+
+&& OCC & 84\% \\
+\cline{2-4}
+
+& \multirow{3}{*}{$20\times20$}
+& WP & 78\% \\
+\cline{3-4}
+
+&& ONP & 72\% \\
+\cline{3-4}
+
+&& OCC & 76\% \\
+\hline
+
+\end{tabular}}
+\end{center}
+\end{table}
+
+The success rate of the developed algorithm is presented on Table~\ref{tab:exper}. The
+rate has been calculated as ratio between correctly classified paper grades and
+misclassified grades. The best result achieved using $5 \times 5$ template size which
+is 96\% for WP, 92\% for ONP, and 96\% for OCC.
+
+% ---
+% Sorting systems of recyclable materials
+% ---
+\section{ CONCLUSION }
 
 % Bibliography
 \addcontentsline{toc}{section}{REFERENCES}
