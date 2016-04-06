@@ -141,18 +141,18 @@ In recent years, there have been many papers describing
 machine vision systems for sorting different kinds
 of recyclable materials. Earlier, people were only
 able to perform manual sorting, but with
-development of pattern recognition and intelligence
+development of the pattern recognition and intelligence
 techniques the automated sorting started to prevail
 in industry. There is considerable variety of the
 articles and other sources describing different
 algorithms and systems for automatic sorting. Moreover,
-usually each article concentrates only on only one
+usually each article concentrates only on one
 type of waste. For example, the process of sorting
 plastic bottles is described in~\cite{Wahab:2006}, the
 separation of grades of paper is outlined
-in~\cite{Rahman:2009}. However, there not too many
-sources which allow to understand what are common
-methods for all of the materials, where
+in~\cite{Rahman2009matching}. However, there not too many
+sources which allow to understand what common
+methods exist for all of the materials, where
 you could better understand and analyze how machine
 vision can be used to overcome the problem
 of waste sorting.
@@ -168,12 +168,12 @@ investigated. It was revealed that most of
 the systems include camera sensors. The images
 of the objects are preprocessed, and
 after feature extraction there are pattern
-recognition methods are applied.
+recognition methods applied.
 
 \subsection{ Structure of the Report }
 The paper is divided into two main sections. The first part
 is devoted to plastic recycling. In this part we present
-the ideas and algorithm used for sorting two types of resin,
+the ideas and algorithms used for sorting two types of resin,
 namely PET and non-PET. The second section describes
 state of affairs in paper sorting. In this part
 we report a method for sorting three kinds of paper:
@@ -187,14 +187,14 @@ Old Corrugated Cardboard, Old News Paper and White Paper.
 \section{ SORTING SYSTEMS OF RECYCLABLE MATERIALS }
 \subsection{ Plastic Recycling }
 
-One of the common problem of recycling is separation and recycling
-of plastic recycling and techniques
-of machine vision have takes significant part in this
+One of the common problems in waste recycling is
+separation and sorting of plastic and techniques
+of machine vision take significant part in this
 process. The most common systems are based on optical
 sensors, X-Ray and Near Infrared cameras. Although
 these methods show effectiveness, they can be too
 expensive and redundant for facilities with low and
-high throughput. The idea to overcome this issue
+high throughput. The algorithm which helps to overcome this issue
 is presented in this section based on ideas from~\cite{Wahab:2006}.
 
 
@@ -202,14 +202,14 @@ is presented in this section based on ideas from~\cite{Wahab:2006}.
 
 Plastic materials are very lightweight and can be used to
 contain many different kinds of liquids or utilized as packaging.
-Usually, plastic is divided in several categories of resins, the most common
+Usually, plastic is divided into several categories of resin, the most common
 ones are PET, HDPE, LDPE, PVC, PP and PS, as can bee seen from Table \ref{tab:resin_types}.
 Some of this types have various kinds of recyclable applications.
 Generally, there are two ways of sorting plastic: manual sorting and
 automated sorting. Due to very high cost and small efficiency, companies are
 concerned of automating this process. Noteworthy, that for proper recycling process
-types resins should not be mixed, otherwise it can lead to
-emission of hydrochloric gases.
+different types of resin should not be mixed, otherwise it
+can lead to emission of hydrochloric gases.
 
 \begin{table}[hpt]
 \begin{center}
@@ -247,18 +247,18 @@ emission of hydrochloric gases.
 
 Manual sorting relies on workers who are walking along the
 conveyor belt, picking up bottles of different types and
-putting them in different containers. However, method turned
-out to be not effective for facilities with high throughput.
+putting them into different containers. However, method occurred
+to be not effective for facilities with high throughput.
 Also, it was revealed that workers tend to make mistakes
 in course of sorting.
 
-Automated sorting utilizes detection systems which are build
+Automated sorting utilizes detection systems which are built
 using modern machine vision methods to separate plastic by type,
-shape or color. Sorting can be divided on bottle sorting (macro-sorting)
+shape or color. Sorting can be divided into bottle sorting (macro-sorting)
 and flake sorting (micro-sorting). The second type is performed on granules
 and can process considerable amounts of plastic mass.
 
-Although micros-sorting is starting to gain
+Although micro-sorting is starting to gain
 popularity in recycling area, whole-bottle sorting
 is still prevails in industry. During macro-sorting
 process bottles are sorted in different containers
@@ -286,12 +286,12 @@ and Health Administration.
 
 Since 1989 the development of automatic plastic sorting systems
 has started and just in two years one introduced a system for separating
-PVC resin from PETA. It was a starting point, when the problem
+PVC resin from PETA~\cite{Wahab:2006}. It was a starting point, when the problem
 of the recycling of the materials got more attention.
 
 Modern automated systems tend to be rather efficient, although
 quite often it requires considerable amount of scientific and
-technological investments. Because of this reason it may not
+technological investments. Because of these reasons, it may not
 be suitable for small or medium size manufacturers. Considering this
 issue the authors of~\cite{Wahab:2006} propose imaging systems
 that allows separating materials in two classes: PET and non-PET
@@ -322,10 +322,10 @@ The sorting process can be described as follows, first
 image is digitalized using internal camera mechanisms.
 Next, digital image is going through pre-processing
 where it adjusts to particular task, applies filters
-and removes defects. After that starts process
-of feature extraction which leads classification.
+and removes defects. After that starts the process
+of the feature extraction which leads to classification.
 
-On the pre-processing step image is converting
+On the pre-processing step image is converted
 to binary format using thresholding. The next step is
 the usage of morphological operations for
 edge detection. The most known morphological operations
@@ -335,7 +335,7 @@ on image. The output of this process is black-white
 image of the same size.
 
 The pre-processed image is further analyzed and
-goes as an input to feature extractor which converts
+goes as an input to feature extractor, which converts
 given image to small set of particular features. In presented
 work main parameters for extraction were color and
 shape of bottles.
@@ -344,12 +344,12 @@ Boundary or contour-based, region or area based and skeleton based
 are three main approaches for shape representation.
 In this system, authors have chosen the first method
 and implemented it using Freeman Chain Codes introduced
-in 1961 by Herbert Freeman.
+in 1961 by Herbert Freeman~\cite{Freeman:1961}.
 
 For the classification task authors used wide range of different
 methods. The first option were to measure Euclidean distance between
 image being processed and set of images from stored
-dataset. This method has been characterized as reliable
+dataset and apply KNN algorithm. This method has been characterized as reliable
 even in case of bottles with identical shapes. Also,
 authors considered several artificial neural networks,
 utilizing sizes of shapes in pixels. In addition,
@@ -371,7 +371,7 @@ algorithms. The advantage of developed system is that
 it can be used on facilities with low and medium
 load. Moreover, the resulting system can be run
 on common personal computer, which turns out
-to be much cheaper solution in comparison with
+to be much cheaper solution in comparison to
 X-Ray, Near Infrared and Infrared systems.
 
 \subsection{ Paper Recycling }
@@ -384,8 +384,8 @@ amount of chemicals, electricity and time. Hence,
 by sorting paper we can achieve better efficiency
 and resulting product quality. In this section will be
 considered state-of-the art techniques for paper sorting
-systems, in particular, the method base on Template Matching
-\cite{Rahman:2009}.
+systems, in particular, the method based on Template Matching
+\cite{Rahman2009matching}.
 
 \subsubsection*{ Modern Technologies of Paper Recycling }
 As well as plastic sorting, paper
@@ -393,9 +393,9 @@ sorting systems have two main option for sorting process: manual
 and automated. Due to low efficiency of manual sorting we will not be considering
 it and focus on latest achievements in automated sorting systems.
 
-In 1997 Faibish et al. \cite{Faibish:1997} described a robotic system for sorting paper waste
-using two types of two types of sensors. The first one is stereoscopic
-vision system that consist of two CCD cameras. Another one is ultrasonic
+In 1997 Faibish~et~al.~\cite{Faibish:1997} described a robotic system for sorting paper waste
+using two types of sensors. The first one is a stereoscopic
+vision system that consists of two CCD cameras. Another one is ultrasonic
 sensor which includes emitter and receiver attached to vacuum gripper.
 The time delays between sending and receiving ultrasound signals allow
 to reconstruct form of the object. For classification
@@ -409,19 +409,19 @@ of illumination, usage of this system straggled to overcome
 noises with poorly illuminated environment. The second issue
 is unacceptable throughput (80 msec/sub-frame) for industrial applications.
 
-In other work of Ramasubramanian et al.~\cite{Ramasubramanian:2005} introduce lignin sensor
+In other work of Ramasubramanian~et~al.~\cite{Ramasubramanian:2005} introduced lignin sensor
 effectively separating newspapers from other kinds of paper,
 but is influenced by color and distance between sensor and sample.
-Following that, Hottenstein et al.~\cite{Friberg:2000} publish method of sorting
+Following that, Hottenstein~et~al.~\cite{Friberg:2000} published the method of sorting
 newspaper in three main categories: white papers containing optical brighteners,
 white papers without optical brighteners and other types of paper. To distinguish
-these categories authors used brightness sensor. Venditti et al.~\cite{Venditti:2007}
+these categories authors used brightness sensor. Venditti~et~al.~\cite{Venditti:2007}
 proposed stiffness sensor for sorting paperboards. The series of
 experiments revealed that sensing is able to sort cardboards
 into three main classes: light weight paper, medium weight cardstock,
 and heavy cardboard. The disadvantage
 of the system is that sometime it could not distinguish a stack
-of newsprints from single paperboard. Eixelberger et al.~\cite{Eixelberger:2003} developed a system
+of newsprints from single paperboard. Eixelberger~et~al.~\cite{Eixelberger:2003} developed a system
 for separating paper waste into two classes based on reflected
 from the surface of the paper radiation which simplified scheme
 is illustrated on Figure~\ref{afig:eixelberger}.
@@ -435,7 +435,7 @@ is illustrated on Figure~\ref{afig:eixelberger}.
   \label{afig:eixelberger}
 \end{figure}
 
-In 1999, Gschweitl \cite{Gschweitl:1999} patented sorting system that uses
+In 1999, Gschweitl~\cite{Gschweitl:1999} patented sorting system that uses
 combination of visible light, ultraviolet light, x-rays and/or
 infrared light to illuminate the paper for sorting. However,
 Gschweitl utilized mechanical system for picking paper which
@@ -443,21 +443,21 @@ results in serious performance restrictions.
 
 While definitely being a serious improvement in terms
 of high-volume recycling, mentioned methods still lack
-of reliability, rather complex, expensive and cannot process
+of reliability, rather complex, expensive or cannot process
 more than two types of paper at a time. In addition, feature extraction
 was performed without usage of image processing and
 intelligence techniques.
 
 \subsubsection*{ Template Matching Based Waste Paper Sorting System Description }
 
-In the work of MO Rahman et al.~\cite{Rahman:2009} the papers sorting
+In the work of MO Rahman~et~al.~\cite{Rahman2009sorting} the papers sorting
 system based on electronic image. The method is based based on
 selection of four supporting points on the image and extracting
 features around these points. However, during extraction
 procedure no information about the texture of the object
 is used what can lead to wrong assumption about the paper
 grade. Hence, the main goal of the work presented by
-Rahman et al.~\cite{Rahman:2009} is to separate different
+Rahman~et~al.~\cite{Rahman2009matching} is to separate different
 types of paper utilizing algorithm of template
 matching~\cite{Pham:2003}. In developed system authors
 use RGB channels of the paper sample image to
@@ -478,7 +478,7 @@ for N-cells, matching, and decision.
   \includegraphics[width=1\textwidth]{tempmatch}
   \par}
   \caption{Block Diagram of the Paper Grade Identification
-          System Using Template Matching~\cite{Rahman:2009}}
+          System Using Template Matching~\cite{Rahman2009matching}}
   \label{afig:tempmatch}
 \end{figure}
 
@@ -497,11 +497,42 @@ signal is followed by absence signal then camera is making a photo
 of inspected zone.
 
 The image preprocessing is done after making a
-photo of inspection zone a trimming unnecessary boundaries. Once
+photo of inspection zone trimming unnecessary boundaries. Once
 this step is performed, the next action is to remove
 background noise by applying the combination
 of thresholding and morphological operation
 erosion using $3\times3$ convolution filter.
+
+\begin{table}[hpt]
+\begin{center}
+\caption{Some Example of RGB-String Units For Single Pixel.\label{tab:rgbstr}}
+{\renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|}
+
+% Title
+\hline
+\textbf{RGBString for Single Pixel} \\
+\hline
+RGBY \\
+\hline
+RRGGBBYY \\
+\hline
+BBBBRRRRGGGGYYYY \\
+\hline
+BGRY \\
+\hline
+RRRGGGBBBYYY \\
+\hline
+GGGGRRRRBBBBYYYY \\
+\hline
+BBBRRRGGGYYY \\
+\hline
+RRRRGGGGBBBBYYYY \\
+\hline
+
+\end{tabular}}
+\end{center}
+\end{table}
 
 The paper image uses 3 channels for its representation,
 namely $R$ (red), $G$ (green) and $B$ (blue). To obtain gray scale
@@ -519,7 +550,8 @@ fourth place in RGBString. The frequency of appearance
 of the certain color component is related to its value,
 because ranges of values for different components are
 distinct for different types of paper. The color repetition
-process is described by Listing~\ref{lst:colorrep}.
+process is described by Listing~\ref{lst:colorep}. The example
+of resulting RGBStrings are presented in Table~\ref{tab:rgbstr}.
 
 \begin{lstlisting}[caption={Color Repetiotion Calculation}, label={lst:colorep}]
 # Color repetition in RGBString
@@ -533,16 +565,16 @@ else: color_repetition = 4
 To construct template, the system obtains the information
 related to region of interest and RGBString
 after getting template width (TW) and template height (TH)
-values of the template image. As it illustrated on figure~\ref{afig:searchimg}, the
+values of the template image. As it is illustrated on figure~\ref{afig:searchimg}, the
 search image is partitioned into N-cells. The cell
 image should have equal size to template image.
 All of the redundant cells are filtered beforehand.
 
 \begin{figure}[htp]
   {\par\centering
-  \includegraphics[width=0.55\textwidth]{searchimg}
+  \includegraphics[width=0.70\textwidth]{searchimg}
   \par}
-  \caption{Search Image and Template Image~\cite{Rahman:2009}}
+  \caption{Search Image and Template Image~\cite{Rahman2009matching}}
   \label{afig:searchimg}
 \end{figure}
 
@@ -555,6 +587,12 @@ threshold then template is increased by one (Listing~\ref{lst:tempmatch}).
 For their implementation authors use
 92\% as threshold value.
 
+Once matching process is finished, the next step is decision
+making (Listing~\ref{lst:decision}). In this procedure, templates are iterated
+one by one retrieving occurrence, if occurrence of the certain
+template is higher than others then paper is graded by the
+index of this template.
+
 \begin{lstlisting}[caption={Template Matching Procedure}, label={lst:tempmatch}]
 # Template matching
 for template in templates:
@@ -563,12 +601,6 @@ for template in templates:
         if score >= threshold:
             templateOccurance[template] += 1
 \end{lstlisting}
-
-Once matching process is finished, the next step is decision
-making. In this procedure, templates are iterated
-one by one retrieving occurrence, if occurrence of the certain
-template is higher than others then paper is graded by the
-index of this template.
 
 \begin{lstlisting}[caption={Decision Making Procedure}, label={lst:decision}]
 # Decision making
@@ -605,10 +637,9 @@ size. Thus, the less template size then bigger number of
 image cells should be considered which results
 in greater computational time.
 
-
 \begin{table}[hpt]
 \begin{center}
-\caption{Experiment resutls~\cite{Rahman:2009}.\label{tab:exper}}
+\caption{Experiment resutls~\cite{Rahman2009matching}.\label{tab:exper}}
 {\renewcommand{\arraystretch}{2}
 \begin{tabular}{|p{0.25\linewidth}|p{0.2\linewidth}|p{0.2\linewidth}|p{0.2\linewidth}|}
 
